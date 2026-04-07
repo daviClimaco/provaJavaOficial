@@ -18,20 +18,19 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
-        Produto novo = produtoService.criarProduto(produto);
-        return ResponseEntity.status(201).body(novo);
+        produtoService.criarProduto(produto);
+        return ResponseEntity.status(201).body(produto);
     }
 
     @GetMapping
-    public ResponseEntity<List<Produto>> buscarTodos() {
-        return ResponseEntity.ok(produtoService.buscarTodos());
+    public List<Produto> buscarTodos() {
+        return produtoService.buscarTodos();
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
         try {
-            Produto produto = produtoService.buscarPorId(id);
-            return ResponseEntity.ok(produto);
+            return ResponseEntity.ok(produtoService.buscarPorId(id));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -40,8 +39,7 @@ public class ProdutoController {
     @PutMapping("{id}")
     public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody Produto produto) {
         try {
-            Produto atualizado = produtoService.atualizar(id, produto);
-            return ResponseEntity.ok(atualizado);
+            return ResponseEntity.ok(produtoService.atualizar(id, produto));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
